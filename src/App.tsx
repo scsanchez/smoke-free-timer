@@ -8,6 +8,30 @@ interface TimeElapsed {
   seconds: number;
 }
 
+const achievements = [
+  { time: 60 * 60 * 1000, message: "¡He alcanzado 1 hora sin fumar!" },
+  { time: 24 * 60 * 60 * 1000, message: "¡He alcanzado 1 día sin fumar!" },
+  { time: 2 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 2 días sin fumar!" },
+  { time: 3 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 3 días sin fumar!" },
+  { time: 4 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 4 días sin fumar!" },
+  { time: 5 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 5 días sin fumar!" },
+  { time: 6 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 6 días sin fumar!" },
+  {
+    time: 7 * 24 * 60 * 60 * 1000,
+    message: "¡He alcanzado 1 semana sin fumar!",
+  },
+  {
+    time: 14 * 24 * 60 * 60 * 1000,
+    message: "¡He alcanzado 2 semanas sin fumar!",
+  },
+  {
+    time: 21 * 24 * 60 * 60 * 1000,
+    message: "¡He alcanzado 3 semanas sin fumar!",
+  },
+  { time: 30 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 1 mes sin fumar!" },
+  // Añade más logros según sea necesario
+];
+
 function App() {
   const [timeElapsed, setTimeElapsed] = useState<TimeElapsed>({
     days: 0,
@@ -16,11 +40,12 @@ function App() {
     seconds: 0,
   });
 
+  const [achieved, setAchieved] = useState<string[]>([]);
+
   useEffect(() => {
-    // Fecha y hora en la que dejaste de fumar (11 am de ayer)
     const quitDate = new Date();
-    quitDate.setDate(quitDate.getDate() - 1); // Ayer
-    quitDate.setHours(11, 0, 0, 0); // 11 am
+    quitDate.setDate(quitDate.getDate() - 1);
+    quitDate.setHours(11, 0, 0, 0);
 
     const updateTimer = () => {
       const now = new Date();
@@ -32,14 +57,22 @@ function App() {
       const seconds = Math.floor((difference / 1000) % 60);
 
       setTimeElapsed({ days, hours, minutes, seconds });
+
+      // Verifica logros
+      achievements.forEach((achievement) => {
+        if (
+          difference >= achievement.time &&
+          !achieved.includes(achievement.message)
+        ) {
+          setAchieved((prev) => [...prev, achievement.message]);
+        }
+      });
     };
 
-    // Actualiza el temporizador cada segundo
     const intervalId = setInterval(updateTimer, 1000);
 
-    // Limpia el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
-  }, []);
+  }, [achieved]);
 
   return (
     <div className="container">
@@ -49,6 +82,15 @@ function App() {
           Han pasado {timeElapsed.days} días, {timeElapsed.hours} horas,{" "}
           {timeElapsed.minutes} minutos y {timeElapsed.seconds} segundos.
         </p>
+        <br />
+        <div className="achievements">
+          <h2>Logros conseguidos</h2>
+          <ul className="no-bullets">
+            {achieved.map((achievement, index) => (
+              <li key={index}>{achievement}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
