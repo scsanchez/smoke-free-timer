@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
+interface TimeElapsed {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 function App() {
-  const [timeElapsed, setTimeElapsed] = useState({});
+  const [timeElapsed, setTimeElapsed] = useState<TimeElapsed>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     // Fecha y hora en la que dejaste de fumar (11 am de ayer)
@@ -12,7 +24,7 @@ function App() {
 
     const updateTimer = () => {
       const now = new Date();
-      const difference = now - quitDate;
+      const difference = now.getTime() - quitDate.getTime();
 
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
@@ -30,17 +42,15 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div className="container">
-        <div className="box">
-          <h1>Tiempo sin fumar</h1>
-          <p>
-            Han pasado {timeElapsed.days} días, {timeElapsed.hours} horas,{" "}
-            {timeElapsed.minutes} minutos y {timeElapsed.seconds} segundos.
-          </p>
-        </div>
+    <div className="container">
+      <div className="box">
+        <h1>Tiempo sin fumar</h1>
+        <p>
+          Han pasado {timeElapsed.days} días, {timeElapsed.hours} horas,{" "}
+          {timeElapsed.minutes} minutos y {timeElapsed.seconds} segundos.
+        </p>
       </div>
-    </>
+    </div>
   );
 }
 
