@@ -5,7 +5,6 @@ interface TimeElapsed {
   days: number;
   hours: number;
   minutes: number;
-  seconds: number;
 }
 
 const achievements = [
@@ -16,18 +15,9 @@ const achievements = [
   { time: 4 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 4 días sin fumar!" },
   { time: 5 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 5 días sin fumar!" },
   { time: 6 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 6 días sin fumar!" },
-  {
-    time: 7 * 24 * 60 * 60 * 1000,
-    message: "¡He alcanzado 1 semana sin fumar!",
-  },
-  {
-    time: 14 * 24 * 60 * 60 * 1000,
-    message: "¡He alcanzado 2 semanas sin fumar!",
-  },
-  {
-    time: 21 * 24 * 60 * 60 * 1000,
-    message: "¡He alcanzado 3 semanas sin fumar!",
-  },
+  { time: 7 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 1 semana sin fumar!" },
+  { time: 14 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 2 semanas sin fumar!" },
+  { time: 21 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 3 semanas sin fumar!" },
   { time: 30 * 24 * 60 * 60 * 1000, message: "¡He alcanzado 1 mes sin fumar!" },
   // Añade más logros según sea necesario
 ];
@@ -37,7 +27,6 @@ function App() {
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0,
   });
 
   const [achieved, setAchieved] = useState<string[]>([]);
@@ -54,22 +43,19 @@ function App() {
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((difference / 1000 / 60) % 60);
-      const seconds = Math.floor((difference / 1000) % 60);
 
-      setTimeElapsed({ days, hours, minutes, seconds });
+      setTimeElapsed({ days, hours, minutes });
 
       // Verifica logros
       achievements.forEach((achievement) => {
-        if (
-          difference >= achievement.time &&
-          !achieved.includes(achievement.message)
-        ) {
+        if (difference >= achievement.time && !achieved.includes(achievement.message)) {
           setAchieved((prev) => [...prev, achievement.message]);
         }
       });
     };
 
-    const intervalId = setInterval(updateTimer, 1000);
+    updateTimer(); // Llama a updateTimer inmediatamente para establecer el estado inicial
+    const intervalId = setInterval(updateTimer, 60000); // Actualiza cada minuto
 
     return () => clearInterval(intervalId);
   }, [achieved]);
@@ -78,13 +64,13 @@ function App() {
     <div className="container">
       <div className="box">
         <h1>Tiempo sin fumar</h1>
-        <p>
-          Han pasado {timeElapsed.days} días, {timeElapsed.hours} horas,{" "}
-          {timeElapsed.minutes} minutos y {timeElapsed.seconds} segundos.
-        </p>
+        <h2>
+          Han pasado {timeElapsed.days} días, {timeElapsed.hours} horas y{" "}
+          {timeElapsed.minutes} minutos.
+        </h2>
         <br />
         <div className="achievements">
-          <h2>Logros conseguidos</h2>
+          <h3>Logros conseguidos:</h3>
           <ul className="no-bullets">
             {achieved.map((achievement, index) => (
               <li key={index}>{achievement}</li>
