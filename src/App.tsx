@@ -41,9 +41,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const quitDate = new Date();
-    quitDate.setDate(quitDate.getDate() - 1);
-    quitDate.setHours(11, 0, 0, 0);
+    const quitDate = new Date(2024, 7, 11, 11, 0, 0, 0); // 11 de agosto de 2024 a las 11 am
 
     const updateTimer = () => {
       const now = new Date();
@@ -81,19 +79,6 @@ function App() {
           {timeElapsed.minutes} minutos.
         </h2>
         <br />
-        <button onClick={() => setIsModalOpen(true)}>Motivos</button>
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={() => setIsModalOpen(false)}>
-                &times;
-              </span>
-              <h2>Motivos por los cuales dejar de fumar</h2>
-              <p>Aquí puedes listar los motivos...</p>
-            </div>
-          </div>
-        )}
-        <br />
         <div className="achievements">
           <h3>Logros conseguidos:</h3>
           <ul className="no-bullets">
@@ -102,7 +87,19 @@ function App() {
             ))}
           </ul>
         </div>
+        <button onClick={() => setIsModalOpen(true)}>Mostrar motivos</button>
       </div>
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setIsModalOpen(false)}>
+              &times;
+            </span>
+            <h2>Motivos por los cuales dejar de fumar</h2>
+            <p>Aquí puedes listar los motivos...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
