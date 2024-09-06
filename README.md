@@ -28,7 +28,7 @@ Smoke-Free Timer es una aplicación diseñada para ayudar a las personas a dejar
 
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/usuario/smoke-free-timer.git
+    git clone https://github.com/scsanchez/smoke-free-timer.git
     ```
 
 2. Instala las dependencias:
@@ -68,6 +68,3 @@ Smoke-Free Timer es una aplicación diseñada para ayudar a las personas a dejar
 
 ¡Las contribuciones son bienvenidas! Si tienes ideas, sugerencias o encuentras algún bug, no dudes en abrir un issue o un pull request.
 
-## Licencia
-
-Este proyecto es privado, pero puede ser modificado y distribuido bajo acuerdo con los desarrolladores.
