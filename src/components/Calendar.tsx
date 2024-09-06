@@ -14,15 +14,8 @@ const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["MobileDateTimePicker"]}>
           <MobileDateTimePicker
-            label="Elige una fecha y hora de inicio"
+            label="Elige fecha y hora de inicio"
             onChange={(date) => onDateChange(date)}
-            slotProps={{
-              textField: {
-                InputLabelProps: {
-                  style: { textAlign: "center", width: "100%" },
-                },
-              },
-            }}
           />
         </DemoContainer>
       </LocalizationProvider>

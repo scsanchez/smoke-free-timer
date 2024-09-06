@@ -65,15 +65,15 @@ const App: React.FC = () => {
         <h1>Tiempo sin fumar</h1>
         <Calendar onDateChange={handleDateChange} />
         <h2>
-          Han pasado
+          Llevas{" "}
           {timeElapsed.years > 0 &&
             formatTimeUnit(timeElapsed.years, "año", "años") + ","}
           {timeElapsed.months > 0 &&
             formatTimeUnit(timeElapsed.months, "mes", "meses") + ","}
-          {formatTimeUnit(timeElapsed.days, "día", "días")} y{" "}
+          {timeElapsed.days > 0 &&
+            formatTimeUnit(timeElapsed.days, "día", "días") + " y"}{" "}
           {timeElapsed.hours} horas.
         </h2>
-        <br />
         <Achievements timeElapsed={totalMillisecondsElapsed} />
         <Button variant="contained" onClick={() => setIsModalOpen(true)}>
           Mostrar motivos
