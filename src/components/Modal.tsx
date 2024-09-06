@@ -2,13 +2,13 @@ import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 
 interface MotivosModalProps {
-  isOpen: boolean;
+  open: boolean;
   onClose: () => void;
 }
 
-const MotivosModal: React.FC<MotivosModalProps> = ({ isOpen, onClose }) => {
+const MotivosModal: React.FC<MotivosModalProps> = ({ open, onClose }) => {
   return (
-    <Modal open={isOpen} onClose={onClose}>
+    <Modal open={open} onClose={onClose}>
       <Box
         sx={{
           position: "absolute",
@@ -26,11 +26,9 @@ const MotivosModal: React.FC<MotivosModalProps> = ({ isOpen, onClose }) => {
           Motivos para dejar de fumar
         </Typography>
         <Typography sx={{ mt: 2 }}>
-          Aquí puedes listar los motivos para dejar de fumar.
+          Aquí puedes listar tus motivos para dejar de fumar...
         </Typography>
-        <Button onClick={onClose} sx={{ mt: 2 }}>
-          Cerrar
-        </Button>
+        <Button onClick={onClose}>Cerrar</Button>
       </Box>
     </Modal>
   );
