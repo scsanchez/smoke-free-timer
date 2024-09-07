@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
+import DataReasons from "./dataReasons";
 
 interface MotivosModalProps {
   open: boolean;
@@ -22,12 +23,8 @@ const MotivosModal: React.FC<MotivosModalProps> = ({ open, onClose }) => {
           p: 4,
         }}
       >
-        <Typography variant="h6" component="h2">
-          Motivos para dejar de fumar
-        </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Aquí puedes listar tus motivos para dejar de fumar...
-        </Typography>
+        <DataReasons />
+
         <Button onClick={onClose}>Cerrar</Button>
       </Box>
     </Modal>
